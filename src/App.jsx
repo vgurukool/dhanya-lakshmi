@@ -12,7 +12,7 @@ import { AddMealModal } from './components/AddMealModal';
 import { AddPantryModal } from './components/AddPantryModal';
 import { AIChatModal } from './components/AIChatModal';
 
-export function App() {
+export function App({ keycloak }) {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [state, setState] = useState({
     meals: [],
@@ -130,6 +130,7 @@ export function App() {
       {/* Main Viewport */}
       <div style={{ flex: 1, marginLeft: '270px', display: 'flex', flexDirection: 'column', minWidth: 0 }}>
         <Header
+          keycloak={keycloak}
           activeTab={activeTab}
           todayWater={state.vitalityLogs?.[0]?.waterLiters || 2.8}
           currentEnv={state.currentEnvironment || {}}

@@ -2,7 +2,7 @@ import React from 'react';
 import { VEDIC_FOOD_QUOTES } from '../data/vedicFoodData';
 import { Sparkles, Droplets, Utensils, Wind, Sun } from 'lucide-react';
 
-export function Header({ activeTab, todayWater = 2.8, currentEnv = {}, onOpenAddMeal }) {
+export function Header({ keycloak, activeTab, todayWater = 2.8, currentEnv = {}, onOpenAddMeal }) {
   const quote = VEDIC_FOOD_QUOTES[0];
   const aqi = currentEnv.aqi || 38;
   const temp = currentEnv.temperatureC || 26.5;
@@ -85,6 +85,30 @@ export function Header({ activeTab, todayWater = 2.8, currentEnv = {}, onOpenAdd
             "{quote.translation}"
           </div>
         </div>
+
+        {keycloak && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: '10px', paddingLeft: '10px', borderLeft: '1px solid #334155' }}>
+            <span style={{ fontSize: '12px', color: '#38BDF8', fontWeight: 600 }}>
+              👤 {keycloak.tokenParsed?.preferred_username || 'user'}
+            </span>
+            <button
+              onClick={() => keycloak.logout({ redirectUri: window.location.origin })}
+              title="Sign Out of Keycloak SSO"
+              style={{
+                background: '#EF4444',
+                border: 'none',
+                padding: '5px 10px',
+                borderRadius: '6px',
+                color: 'white',
+                fontSize: '11px',
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              Sign Out
+            </button>
+          </div>
+        )}
       </div>
     </header>
   );
